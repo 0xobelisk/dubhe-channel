@@ -1,0 +1,341 @@
+# Dubhe Channel Production Configuration
+# Optimized for high-performance WebSocket connectivity and enterprise deployment
+
+[api]
+rpc_bind = "0.0.0.0:8545"         # JSON-RPC service address (all interfaces)
+grpc_bind = "0.0.0.0:9090"        # gRPC service address
+ws_bind = "0.0.0.0:8546"          # WebSocket service address
+max_connections = 10000           # Maximum concurrent connections
+request_timeout_ms = 30000        # Request timeout (30 seconds)
+enable_cors = true                # Enable CORS for web clients
+cors_origins = ["*"]              # Allowed CORS origins (restrict in production)
+
+# WebSocket-specific API settings
+[api.websocket]
+max_frame_size = 1048576          # Maximum WebSocket frame size (1MB)
+ping_interval_sec = 30            # WebSocket ping interval
+pong_timeout_sec = 10             # WebSocket pong timeout
+max_concurrent_streams = 100      # Maximum concurrent WebSocket streams per connection
+enable_compression = true         # Enable WebSocket compression
+compression_level = 6             # Compression level (1-9)
+
+# Blockchain adapter configurations
+[adapters.ethereum]
+rpc_url = "https://eth-mainnet.g.alchemy.com/v2/YOUR-PROD-API-KEY"
+ws_url = "wss://eth-mainnet.g.alchemy.com/v2/YOUR-PROD-API-KEY"
+chain_id = 1                      # Ethereum mainnet
+timeout_ms = 30000                # Request timeout
+max_retries = 3                   # Maximum retry attempts
+retry_delay_ms = 1000             # Delay between retries
+
+# Connection pool settings for Ethereum
+[adapters.ethereum.connection_pool]
+max_connections = 20              # Maximum connections in pool
+idle_timeout_sec = 300            # Idle connection timeout
+connect_timeout_sec = 10          # Connection establishment timeout
+enable_keepalive = true           # Enable connection keepalive
+
+[adapters.sui]
+rpc_url = "https://fullnode.mainnet.sui.io"
+ws_url = "wss://fullnode.mainnet.sui.io"
+network_type = "Mainnet"          # Production mainnet
+timeout_ms = 30000
+max_retries = 3
+retry_delay_ms = 1000
+
+# Sui package monitoring
+package_ids = [
+    "0x1",                        # Sui Framework (core system)
+    "0x2",                        # Sui System (system objects)
+    "0x3",                        # Sui Framework Extensions
+    "0x000000000000000000000000000000000000000000000000000000000000dee9", # Clock
+    "0x0000000000000000000000000000000000000000000000000000000000000006", # Random
+    # Add your production package IDs here
+]
+
+# Connection pool settings for Sui
+[adapters.sui.connection_pool]
+max_connections = 15
+idle_timeout_sec = 300
+connect_timeout_sec = 10
+enable_keepalive = true
+
+# Event subscription settings
+[adapters.sui.events]
+enable_subscription = true        # Enable real-time event subscription
+max_events_per_batch = 100        # Maximum events per batch
+event_buffer_size = 1000          # Event buffer size
+subscription_timeout_sec = 300    # Subscription timeout
+
+# Additional blockchain adapters
+[adapters.solana]
+rpc_url = "https://api.mainnet-beta.solana.com"
+ws_url = "wss://api.mainnet-beta.solana.com"
+commitment = "finalized"          # Transaction commitment level
+timeout_ms = 30000
+max_retries = 3
+
+[adapters.aptos]
+rpc_url = "https://fullnode.mainnet.aptoslabs.com/v1"
+timeout_ms = 30000
+max_retries = 3
+
+[adapters.bitcoin]
+rpc_url = "https://bitcoin-mainnet.example.com"
+rpc_user = "production_user"      # Use environment variable in production
+rpc_password = "production_pass"  # Use environment variable in production
+timeout_ms = 30000
+max_retries = 3
+
+# Parallel scheduler configuration optimized for WebSocket workloads
+[scheduler]
+worker_threads = 16               # Full CPU utilization
+batch_size = 1000                 # Large batch processing
+max_queue_size = 100000           # Large queue for high throughput
+timeout_ms = 30000                # Task timeout
+enable_optimistic_execution = true # Enable optimistic execution
+execution_strategy = "SolanaParallel" # Parallel execution strategy
+
+# WebSocket-aware scheduling
+[scheduler.websocket_optimization]
+prioritize_websocket_tasks = true # Prioritize WebSocket-related tasks
+websocket_task_weight = 1.5       # Weight multiplier for WebSocket tasks
+max_websocket_batch_size = 50     # Maximum batch size for WebSocket tasks
+
+# Connection affinity settings
+[scheduler.connection_affinity]
+enable_affinity = true            # Enable connection-to-worker affinity
+affinity_timeout_sec = 300        # Affinity cache timeout
+max_affinity_entries = 10000      # Maximum affinity cache entries
+
+# Virtual machine configuration
+[vm]
+default_vm = "PolkaVM"            # Default VM: PolkaVM | CkbVM | Cartesi
+max_instances = 1000              # High instance count for production
+instance_pool_size = 100          # Pre-allocated VM instance pool
+instance_timeout_sec = 300        # VM instance timeout
+
+# Move compiler settings optimized for production
+[vm.move_compiler]
+target_arch = "RV64IMC"           # RISC-V 64-bit with compressed instructions
+optimization_level = "Speed"      # Optimize for execution speed
+enable_gas_metering = true        # Enable gas metering
+enable_debug_info = false         # Disable debug info for production
+stackless_bytecode = true         # Generate stackless bytecode
+enable_llvm = false               # Disable LLVM for faster compilation
+max_compile_time_sec = 60         # Maximum compilation time
+
+# WebSocket VM integration
+[vm.websocket_integration]
+enable_streaming_execution = true # Enable streaming execution for WebSocket
+max_streaming_duration_sec = 300  # Maximum streaming execution duration
+streaming_batch_size = 10         # Batch size for streaming operations
+
+# Node core configuration
+[node]
+data_dir = "/var/lib/dubhe"       # Production data directory
+cache_dir = "/var/cache/dubhe"    # Cache directory
+log_dir = "/var/log/dubhe"        # Log directory
+strategy = "SuiObject"            # Execution strategy optimized for Sui
+enable_metrics = true             # Enable metrics collection
+enable_tracing = true             # Enable distributed tracing
+
+# Node networking settings
+[node.networking]
+bind_address = "0.0.0.0"          # Bind to all interfaces
+max_peers = 100                   # Maximum peer connections
+peer_timeout_sec = 300            # Peer connection timeout
+enable_upnp = false               # Disable UPnP for security
+
+# Security configuration for production
+[security]
+enable_tee = false                # TEE not available in this deployment
+enable_sgx = false                # SGX not available in this deployment
+enable_access_control = true      # Enable access control
+audit_level = "Detailed"          # Detailed security auditing
+rate_limiting_enabled = true      # Enable rate limiting
+max_requests_per_minute = 1000    # Rate limit threshold
+
+# TLS/SSL settings
+[security.tls]
+min_version = "1.2"               # Minimum TLS version
+cipher_suites = [                 # Allowed cipher suites
+    "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+    "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256"
+]
+enable_client_cert_auth = false   # Client certificate authentication
+
+# WebSocket security settings
+[security.websocket]
+enable_origin_check = true        # Enable WebSocket origin validation
+allowed_origins = [               # Allowed WebSocket origins
+    "https://dubhe.example.com",
+    "https://app.dubhe.com"
+]
+max_connection_duration_sec = 3600 # Maximum WebSocket connection duration
+enable_rate_limiting = true       # Enable WebSocket-specific rate limiting
+connections_per_ip = 5            # Maximum WebSocket connections per IP
+
+# Observability configuration for production monitoring
+[observability]
+enable_prometheus = true          # Enable Prometheus metrics
+prometheus_port = 9100           # Prometheus metrics port
+prometheus_path = "/metrics"     # Metrics endpoint path
+enable_tracing = true            # Enable distributed tracing
+tracing_endpoint = "http://jaeger:14268/api/traces"
+log_level = "info"               # Production log level
+structured_logging = true        # Enable structured JSON logging
+log_rotation = true              # Enable log rotation
+
+# WebSocket-specific observability
+[observability.websocket]
+enable_websocket_metrics = true   # Enable WebSocket-specific metrics
+track_connection_duration = true  # Track WebSocket connection durations
+track_message_rates = true        # Track WebSocket message rates
+track_error_rates = true          # Track WebSocket error rates
+metrics_collection_interval_sec = 30 # Metrics collection interval
+
+# Performance metrics
+[observability.performance]
+enable_performance_metrics = true # Enable performance monitoring
+cpu_threshold_percent = 80        # CPU usage alert threshold
+memory_threshold_percent = 85     # Memory usage alert threshold
+disk_threshold_percent = 90       # Disk usage alert threshold
+network_threshold_mbps = 1000     # Network throughput threshold
+
+# Cache configuration optimized for WebSocket workloads
+[cache]
+cache_dir = "/var/cache/dubhe"    # Cache directory
+memory_cache_size_mb = 2048       # Large memory cache for production
+disk_cache_size_gb = 100          # Disk cache size
+enable_compression = true         # Enable cache compression
+compression_level = 6             # Cache compression level
+cleanup_interval_hours = 6        # Cache cleanup interval
+max_cache_age_hours = 24          # Maximum cache entry age
+
+# WebSocket-specific caching
+[cache.websocket]
+enable_response_caching = true    # Enable WebSocket response caching
+cache_ttl_sec = 300              # WebSocket cache TTL
+max_cached_responses = 10000     # Maximum cached WebSocket responses
+enable_connection_caching = true  # Enable connection state caching
+
+# Performance tuning for high-throughput production
+[performance]
+tokio_worker_threads = 0          # Auto-detect optimal thread count
+enable_numa_affinity = true      # Enable NUMA affinity optimization
+memory_pool_size_mb = 4096        # Large memory pool
+gc_threshold_mb = 2048            # Garbage collection threshold
+enable_cpu_affinity = true       # Enable CPU affinity optimization
+enable_transparent_hugepages = true # Enable transparent huge pages
+
+# Network performance optimization
+[performance.network]
+tcp_nodelay = true                # Disable Nagle's algorithm
+tcp_keepalive = true              # Enable TCP keepalive
+tcp_keepalive_idle_sec = 600      # TCP keepalive idle time
+tcp_keepalive_interval_sec = 60   # TCP keepalive probe interval
+tcp_keepalive_probes = 9          # TCP keepalive probe count
+socket_recv_buffer_size = 262144  # Socket receive buffer size
+socket_send_buffer_size = 262144  # Socket send buffer size
+
+# WebSocket performance tuning
+[performance.websocket]
+enable_websocket_optimization = true # Enable WebSocket optimizations
+websocket_buffer_size = 65536     # WebSocket buffer size
+max_websocket_message_size = 1048576 # Maximum WebSocket message size
+websocket_backpressure_threshold = 1000 # Backpressure threshold
+enable_websocket_batching = true  # Enable message batching
+batch_timeout_ms = 10             # Batch timeout
+
+# Monitoring and alerting configuration
+[alerting]
+enable_alerts = true              # Enable alerting system
+alert_cooldown_sec = 300          # Alert cooldown period
+max_alerts_per_hour = 10          # Maximum alerts per hour
+
+# Email alerting configuration
+[alerting.email]
+smtp_server = "smtp.production.com"
+smtp_port = 587
+smtp_use_tls = true
+smtp_username = "alerts@dubhe.com"
+smtp_password = "smtp_password"   # Use environment variable
+from_address = "alerts@dubhe.com"
+to_addresses = [
+    "admin@dubhe.com",
+    "devops@dubhe.com"
+]
+
+# Slack alerting configuration
+[alerting.slack]
+enable_slack = true
+webhook_url = "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+channel = "#dubhe-alerts"
+username = "Dubhe Monitor"
+
+# Alert thresholds optimized for WebSocket services
+[alerting.thresholds]
+cpu_usage_percent = 80            # CPU usage alert threshold
+memory_usage_percent = 85         # Memory usage alert threshold
+disk_usage_percent = 90           # Disk usage alert threshold
+network_usage_mbps = 800          # Network usage alert threshold
+websocket_connection_count = 8000 # WebSocket connection count threshold
+websocket_error_rate_percent = 5  # WebSocket error rate threshold
+response_time_ms = 1000           # Response time alert threshold
+
+# WebSocket-specific alert thresholds
+[alerting.websocket_thresholds]
+max_connection_duration_sec = 3600 # Alert for long-lived connections
+high_message_rate_per_sec = 1000  # Alert for high message rates
+connection_failure_rate_percent = 10 # Connection failure rate threshold
+upgrade_failure_rate_percent = 5  # WebSocket upgrade failure rate
+
+# Backup and disaster recovery configuration
+[backup]
+enable_backup = true              # Enable automatic backups
+backup_dir = "/var/backup/dubhe"  # Backup directory
+backup_interval_hours = 6         # Backup interval
+backup_retention_days = 30        # Backup retention period
+enable_incremental_backup = true  # Enable incremental backups
+compress_backups = true           # Compress backup files
+
+# Database backup settings
+[backup.database]
+backup_format = "sql"             # Backup format
+enable_point_in_time_recovery = true # Enable PITR
+transaction_log_retention_hours = 72 # Transaction log retention
+
+# High availability configuration
+[high_availability]
+enable_ha = true                  # Enable high availability
+health_check_interval_sec = 30    # Health check interval
+failover_timeout_sec = 60         # Failover timeout
+enable_auto_failover = true       # Enable automatic failover
+cluster_size = 3                  # Cluster size for HA
+
+# Load balancing configuration
+[load_balancing]
+enable_load_balancing = true      # Enable load balancing
+algorithm = "least_connections"   # Load balancing algorithm
+health_check_path = "/health"     # Health check endpoint
+health_check_interval_sec = 10    # Health check interval
+health_check_timeout_sec = 5      # Health check timeout
+
+# Environment-specific settings
+[environment]
+environment_name = "production"   # Environment identifier
+deployment_region = "us-east-1"   # Deployment region
+availability_zone = "us-east-1a"  # Availability zone
+enable_debug_mode = false         # Disable debug mode in production
+enable_profiling = false          # Disable profiling in production
+
+# Feature flags for production deployment
+[feature_flags]
+enable_experimental_features = false # Disable experimental features
+enable_beta_features = false      # Disable beta features
+enable_websocket_v2 = true        # Enable WebSocket v2 features
+enable_advanced_caching = true    # Enable advanced caching
+enable_connection_pooling = true  # Enable connection pooling
+enable_auto_scaling = true        # Enable auto-scaling features 

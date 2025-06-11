@@ -1,0 +1,31 @@
+[package]
+name = "dubhe-observability"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Dubhe Channel Observability: Metrics, tracing, alerting, dashboards"
+
+[dependencies]
+# Workspace dependencies
+tokio = { workspace = true }
+serde = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+
+# Metrics (暂时注释，等待依赖可用)
+# prometheus = "0.13"
+# opentelemetry = "0.20"
+# opentelemetry-prometheus = "0.13"
+
+# Tracing (暂时注释，等待依赖可用)
+# jaeger = "0.2"
+# tracing-opentelemetry = "0.21"
+
+# Health checks (暂时注释，等待依赖可用)
+# tower-health = "0.1"
+
+# Alerting (暂时注释，等待依赖可用)
+# lettre = "0.10" # Email alerts

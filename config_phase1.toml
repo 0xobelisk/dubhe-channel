@@ -1,0 +1,76 @@
+# Dubhe Channel Phase 1 Configuration
+# Off-chain execution acceleration - Read-only query configuration
+
+[server]
+host = "127.0.0.1"
+port = 3030
+worker_threads = 4
+max_connections = 1000
+request_timeout_seconds = 30
+
+# Primarily using Sui adapter for off-chain execution
+[adapters.sui]
+enabled = true
+rpc_url = "https://fullnode.testnet.sui.io:443"
+websocket_url = "wss://fullnode.testnet.sui.io:443"
+max_connections_per_url = 10
+request_timeout_ms = 30000
+retry_attempts = 3
+parallel_requests = 20
+enable_caching = true
+cache_ttl_seconds = 60
+
+# Other chain adapters (optional)
+[adapters.ethereum]
+enabled = false
+rpc_url = "https://mainnet.infura.io/v3/your-api-key"
+
+# Parallel scheduler configuration
+[scheduler]
+max_parallel_tasks = 100
+task_queue_size = 1000
+worker_pool_size = 10
+task_timeout_seconds = 60
+retry_policy = "exponential_backoff"
+max_retries = 3
+
+# VM runtime configuration - Using CKB-VM
+[vm]
+type = "ckb-vm"
+max_cycles = 100000000
+memory_limit_mb = 512
+enable_debug = false
+cache_compiled_scripts = true
+
+[execution]
+# Off-chain execution settings
+enable_parallel_execution = true
+max_concurrent_sessions = 50
+execution_timeout_ms = 10000
+
+# Read-only query optimization
+enable_query_cache = true
+query_cache_size = 10000
+query_cache_ttl_seconds = 300
+
+# Resource management
+max_memory_usage_mb = 2048
+max_cpu_usage_percent = 80
+
+[logging]
+level = "info"
+output = "stdout"
+format = "json"
+
+[monitoring]
+enable_metrics = true
+metrics_port = 9090
+enable_health_check = true
+health_check_port = 8080
+
+[security]
+enable_rate_limiting = true
+requests_per_second = 100
+burst_size = 200
+enable_cors = true
+allowed_origins = ["*"]

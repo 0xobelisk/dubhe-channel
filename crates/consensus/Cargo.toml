@@ -1,0 +1,21 @@
+[package]
+name = "dubhe-consensus"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Dubhe Channel Consensus: Lightweight BFT/DAG consensus (optional)"
+
+[dependencies]
+# Workspace dependencies
+tokio = { workspace = true }
+async-trait = { workspace = true }
+serde = { workspace = true }
+anyhow = { workspace = true }
+
+[features]
+default = []
+bft = []
+dag = []

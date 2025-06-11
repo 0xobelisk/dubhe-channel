@@ -1,0 +1,39 @@
+# Dubhe Channel Counter Contract Configuration
+# Real deployment to Sui Testnet
+
+[contract]
+package_id = "0x1234567890123456789012345678901234567890123456789012345678901234"
+module_name = "counter"
+function_name = "increment"
+
+# Supported function calls
+[contract.functions]
+increment = { gas_budget = 10000000, max_retries = 3 }
+get_count = { gas_budget = 1000000, max_retries = 1 }
+reset = { gas_budget = 5000000, max_retries = 2 }
+
+[execution]
+batch_size = 100
+timeout_ms = 30000
+
+# Gas budget configuration
+[gas]
+default_budget = 10000000
+max_budget = 100000000
+price_per_unit = 1000
+
+# Phase 1 demo configuration
+[demo]
+auto_increment = true
+increment_interval_ms = 5000
+max_count = 1000
+
+# Sui network configuration
+[sui]
+rpc_url = "https://fullnode.testnet.sui.io:443"
+websocket_url = "wss://fullnode.testnet.sui.io:443"
+
+# Phase 1 execution manager configuration
+[execution_manager]
+max_parallel_sessions = 10
+session_timeout_ms = 300000 # 5 minutes

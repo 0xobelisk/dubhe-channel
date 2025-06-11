@@ -1,0 +1,33 @@
+[package]
+name = "dubhe-testing"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Dubhe Channel Testing: Integration tests, chaos engineering, fuzz testing"
+
+[dependencies]
+# Workspace dependencies
+tokio = { workspace = true }
+serde = { workspace = true }
+anyhow = { workspace = true }
+
+# Testing frameworks (暂时注释部分依赖，等待可用)
+# tokio-test = "0.4"
+# mockall = "0.11"
+# wiremock = "0.5"
+
+# Property testing
+proptest = { workspace = true }
+# quickcheck = "1.0"
+
+# Chaos engineering (暂时注释，等待依赖可用)
+# chaos = "0.1"
+
+# Load testing (暂时注释，等待依赖可用)
+# goose = "0.17"
+
+# Fuzz testing (暂时注释，等待依赖可用)
+# arbitrary = "1.3"

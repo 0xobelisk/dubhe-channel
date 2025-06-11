@@ -1,0 +1,29 @@
+[package]
+name = "dubhe-bench"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Dubhe Channel Benchmarks: TPS/Loader/Scheduler performance tests"
+
+[[bin]]
+name = "loader-bench"
+path = "src/loader_bench.rs"
+
+[[bin]]
+name = "scheduler-bench"
+path = "src/scheduler_bench.rs"
+
+[dependencies]
+# Workspace dependencies
+tokio = { workspace = true }
+criterion = { workspace = true }
+serde = { workspace = true }
+anyhow = { workspace = true }
+
+# Internal dependencies
+dubhe-loader = { path = "../loader" }
+dubhe-scheduler = { path = "../scheduler" }
+dubhe-adapter = { path = "../adapter" }

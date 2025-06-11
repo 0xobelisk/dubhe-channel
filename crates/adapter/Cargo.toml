@@ -1,0 +1,38 @@
+[package]
+name = "dubhe-adapter"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Dubhe Channel Adapter: Multi-chain light client and ABI extraction"
+
+[dependencies]
+# Workspace dependencies
+tokio = { workspace = true }
+async-trait = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+chrono = { workspace = true }
+
+# Blockchain clients
+ethers = { workspace = true }
+# solana-client = { workspace = true }
+# aptos-sdk = { workspace = true }
+# sui-sdk = { workspace = true }
+
+# Cryptography (临时注释)
+# sha2 = { workspace = true }
+# secp256k1 = { workspace = true }
+
+# Storage
+rocksdb = { workspace = true }
+
+# HTTP client
+reqwest = { version = "0.11", features = ["json"] }
+
+# Hex encoding/decoding
+hex = "0.4"

@@ -1,0 +1,38 @@
+[package]
+name = "dubhe-scheduler"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Dubhe Channel Scheduler: Parallel execution strategy kernel"
+
+[dependencies]
+# Workspace dependencies
+tokio = { workspace = true }
+async-trait = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+
+# Parallel execution
+rayon = { workspace = true }
+crossbeam = { workspace = true }
+dashmap = { workspace = true }
+arc-swap = { workspace = true }
+
+# Internal dependencies
+dubhe-adapter = { path = "../adapter" }
+dubhe-loader = { path = "../loader" }
+
+# Additional dependencies
+num_cpus = { workspace = true }
+
+[features]
+default = ["solana_parallel", "aptos_stm", "sui_object"]
+solana_parallel = []
+aptos_stm = []
+sui_object = []

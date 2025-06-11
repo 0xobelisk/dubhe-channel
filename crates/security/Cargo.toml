@@ -1,0 +1,34 @@
+[package]
+name = "dubhe-security"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Dubhe Channel Security: TEE, SGX, access control, audit trail"
+
+[dependencies]
+# Workspace dependencies
+tokio = { workspace = true }
+serde = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+
+# Security (暂时注释部分依赖，等待可用)
+# ring = "0.16"
+# webpki = "0.22"
+# rustls = "0.21"
+
+# TEE/SGX (optional)
+# sgx = { version = "2.0", optional = true }
+
+# Access control (暂时注释，等待依赖可用)
+# jsonwebtoken = "8.3"
+# bcrypt = "0.14"
+
+[features]
+default = []
+sgx = []
+tee = []
+hsm = []     # Hardware Security Module

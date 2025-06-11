@@ -1,0 +1,20 @@
+[package]
+name = "dubhe-state"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Dubhe Channel State: Storage layer with RocksDB and indexing"
+
+[dependencies]
+# Workspace dependencies
+tokio = { workspace = true }
+serde = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+# Storage
+rocksdb = { workspace = true }
+# paritydb = { workspace = true }

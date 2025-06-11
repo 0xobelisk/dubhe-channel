@@ -1,0 +1,74 @@
+[package]
+name = "dubhe-examples"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[[bin]]
+name = "sui_example"
+path = "sui_example.rs"
+
+[[bin]]
+name = "sui_metadata_loader"
+path = "sui_metadata_loader.rs"
+
+[[bin]]
+name = "full_integration_demo"
+path = "full_integration_demo.rs"
+
+[[bin]]
+name = "move_to_riscv_demo"
+path = "move_to_riscv_demo.rs"
+
+[[bin]]
+name = "phase1_offchain_demo"
+path = "phase1_offchain_demo.rs"
+
+[[bin]]
+name = "counter_end_to_end_test"
+path = "counter_end_to_end_test.rs"
+
+[[bin]]
+name = "simple_counter_demo"
+path = "simple_counter_demo.rs"
+
+[[bin]]
+name = "working_counter_demo"
+path = "working_counter_demo.rs"
+
+[[bin]]
+name = "real_testnet_demo"
+path = "real_testnet_demo.rs"
+
+[[bin]]
+name = "real_testnet_simple"
+path = "real_testnet_simple.rs"
+
+[[bin]]
+name = "true_end_to_end_demo"
+path = "true_end_to_end_demo.rs"
+
+[dependencies]
+# Workspace dependencies
+tokio = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+chrono = { workspace = true }
+serde_json = { workspace = true }
+
+# HTTP client for examples
+reqwest = "0.11"
+
+# Internal dependencies
+dubhe-adapter = { path = "../crates/adapter" }
+dubhe-api = { path = "../crates/api" }
+dubhe-loader = { path = "../crates/loader" }
+dubhe-node = { path = "../crates/node" }
+dubhe-scheduler = { path = "../crates/scheduler" }
+
+dubhe-vm-runtime = { path = "../crates/vm-runtime" }
+
+# Additional dependencies for new examples
+log = "0.4"
+env_logger = "0.10"

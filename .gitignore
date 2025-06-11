@@ -1,0 +1,149 @@
+# Rust
+/target/
+Cargo.lock
+**/*.rs.bk
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Dubhe Channel specific
+/data/
+/cache/
+config.toml
+config.*.toml
+config/
+*.db
+*.sqlite
+
+# Test generated files
+/tmp/
+/temp/
+test_*
+bench_*
+
+# Documentation build
+/target/doc/
+/book/
+
+# Coverage reports
+tarpaulin-report.html
+coverage/
+
+# Backup files
+*.bak
+*.backup
+
+# Local development
+.env
+.env.local
+.env.*.local
+
+# Node modules (if any frontend tooling)
+node_modules/
+
+# Build artifacts
+*.o
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# Performance profiles
+*.prof
+perf.data*
+
+# IDE/Editor metadata
+tags
+TAGS
+.ctags
+.etags
+
+# JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+Session.vim
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# macOS
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.tmp
+*.temp
+*.TMP
+*.TEMP
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk 

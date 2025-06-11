@@ -1,0 +1,43 @@
+[package]
+name = "dubhe-loader"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Dubhe Channel Loader: Bytecode compilation, caching and dynamic plugin loading"
+
+[dependencies]
+# Workspace dependencies
+tokio = { workspace = true }
+async-trait = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+bincode = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+chrono = { workspace = true }
+lru = { workspace = true }
+
+# Dynamic loading
+libloading = { workspace = true }
+dlopen = { workspace = true }
+
+# Caching
+rocksdb = { workspace = true }
+
+# Internal dependencies
+dubhe-adapter = { path = "../adapter" }
+
+# Test dependencies
+tempfile = { workspace = true }
+
+# LLVM for compilation (optional)
+# llvm-sys = { version = "170", optional = true }
+
+[features]
+default = []
+llvm = []            # Enable LLVM-based compilation
+move-llvm = ["llvm"] # Move 专用 LLVM 编译
