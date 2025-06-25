@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 /// 调度策略类型
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum StrategyType {
     SolanaParallel, // Solana Sealevel 账号读写集合并行
     AptosSTM,       // Aptos Block-STM 乐观并发控制

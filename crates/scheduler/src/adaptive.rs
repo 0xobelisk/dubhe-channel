@@ -17,7 +17,7 @@ pub struct AdaptiveScheduler {
     /// 策略选择器
     strategy_selector: StrategySelector,
     /// 工作负载分析器
-    workload_analyzer: WorkloadAnalyzer,
+    pub workload_analyzer: WorkloadAnalyzer,
     /// 性能预测器
     performance_predictor: RwLock<PerformancePredictor>,
     /// 历史性能数据

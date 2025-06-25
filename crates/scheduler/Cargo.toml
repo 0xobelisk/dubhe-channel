@@ -30,6 +30,8 @@ dubhe-loader = { path = "../loader" }
 
 # Additional dependencies
 num_cpus = { workspace = true }
+chrono = { workspace = true }
+rand = "0.8"
 
 [features]
 default = ["solana_parallel", "aptos_stm", "sui_object"]

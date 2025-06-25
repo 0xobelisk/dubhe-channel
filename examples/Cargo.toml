@@ -48,6 +48,22 @@ path = "real_testnet_simple.rs"
 name = "true_end_to_end_demo"
 path = "true_end_to_end_demo.rs"
 
+[[bin]]
+name = "counter_predictive_demo"
+path = "counter_predictive_demo.rs"
+
+[[bin]]
+name = "game_predictive_engine"
+path = "game_predictive_engine.rs"
+
+[[bin]]
+name = "fully_onchain_game_analysis"
+path = "fully_onchain_game_analysis.rs"
+
+[[bin]]
+name = "simple_onchain_game_analysis"
+path = "simple_onchain_game_analysis.rs"
+
 [dependencies]
 # Workspace dependencies
 tokio = { workspace = true }
@@ -72,3 +88,4 @@ dubhe-vm-runtime = { path = "../crates/vm-runtime" }
 # Additional dependencies for new examples
 log = "0.4"
 env_logger = "0.10"
+uuid = "1.0"
